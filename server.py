@@ -5,8 +5,13 @@ from flask import Flask
 app = Flask(__name__)
 
 @app.route("/")
-def hello_world():
-    return "<p>My first web server.</p>"
+def index():
+    return "<p>My first web server. This is the base route.</p>"
+
+@app.route("/hello")
+def hello():
+    return "<p>Hello, coder what are you doing here?</p>"
+
 
 ## Python docs way of creating a server
 
