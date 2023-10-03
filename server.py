@@ -12,6 +12,10 @@ def index():
 def hello():
     return "<p>Hello, coder what are you doing here?</p>"
 
+@app.route('/user/<username>')
+def show_user_profile(username):
+    # show user profile for the specific user that is passed in
+    return f'User {username}' #should return 'User <whatever username is passed in>'
 
 ## Python docs way of creating a server
 
