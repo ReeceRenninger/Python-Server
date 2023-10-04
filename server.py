@@ -1,6 +1,6 @@
 
 # Using a 3rd party module to create a server with Flask
-from flask import Flask, url_for, request
+from flask import Flask, url_for, request, render_template
 
 app = Flask(__name__)
 
@@ -15,9 +15,9 @@ def hello():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        return 'POST request'
+        return do_the_login() #do_the_login() is a function that you would have to create
     else:
-        return 'GET request'
+        return show_the_login_form() #show_the_login_form() is a function that you would have to create
     
 @app.route('/user/<username>')
 def show_user_profile(username):
@@ -39,6 +39,25 @@ with app.test_request_context(): #test_request_context() creates a test request 
     print(url_for('hello')) #prints out the url for the hello function
     print(url_for('login')) #prints out the url for the login function
 
+def show_the_login_form():
+    return 'This is the login form'
+
+def do_the_login():
+    return 'You logged in!'
+
+#** GET / POST requests **#
+@app.get('/login')
+def login_get():
+    return show_the_login_form()
+
+@app.post('/login')
+def login_post():
+    return do_the_login()
+
+#** Rendering Templates **#
+@app.route('/hello/<name>')
+def hello_name(name=None): #set name to None so that if no name is passed in, it will still work
+    return render_template('hello.html', name=name)
 
 ## Python docs way of creating a server
 
