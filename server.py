@@ -1,6 +1,6 @@
 
 # Using a 3rd party module to create a server with Flask
-from flask import Flask
+from flask import Flask, url_for, request
 
 app = Flask(__name__)
 
@@ -12,6 +12,13 @@ def index():
 def hello():
     return "<p>Hello, coder what are you doing here?</p>"
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return 'POST request'
+    else:
+        return 'GET request'
+    
 @app.route('/user/<username>')
 def show_user_profile(username):
     # show user profile for the specific user that is passed in
@@ -26,6 +33,11 @@ def show_post(post_id):
 def show_subpath(subpath):
     # show the subpath after /path/
     return f'Subpath {subpath}'
+
+with app.test_request_context(): #test_request_context() creates a test request context that you can use to test the functionality of request handling code. In this case, we are using it to test the url_for() function
+    print(url_for('index')) #prints out the url for the index function
+    print(url_for('hello')) #prints out the url for the hello function
+    print(url_for('login')) #prints out the url for the login function
 
 
 ## Python docs way of creating a server
