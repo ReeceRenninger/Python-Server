@@ -3,6 +3,7 @@ __pycache__/
 
 # Ignore virtual environment(s)
 serverenv/
+flaskenv/
 
 # Ignore sensitive configuration files
 config.ini
