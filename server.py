@@ -59,6 +59,49 @@ def login_post():
 def hello_name(name=None): #set name to None so that if no name is passed in, it will still work
     return render_template('hello.html', name=name)
 
+
+#** Accessing Request Data **#
+with app.test_request_context('/post', method='POST'): # test_request_context() creates a test request context that you can use to test the functionality of request handling code. In this case, we are using it to test the request object
+    assert request.path == '/post'
+    assert request.method == 'POST'
+
+
+#** Request Object **#
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if valid_login == 'POST':
+            if valid_login(request.form['username'], 
+                           request.form['password']):
+                return log_the_user_in(request.form['username'])
+        else:
+            error = 'Invalid username/password'
+    return render_template('login.html', error=error)
+
+#** Cookies **#
+@app.route('/')
+def index():
+    username = request.cookies.get('username')
+    # use cookies.get(key) instead of cookies[key] to not get a
+    # KeyError if the cookie is missing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Python docs way of creating a server
 
 # from http.server import BaseHTTPRequestHandler, HTTPServer
